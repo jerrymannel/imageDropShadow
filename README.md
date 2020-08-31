@@ -1,6 +1,6 @@
 # ImageDropShadow
 
-Drop shadow to image using Go.
+Image drop shadow using Go.
 
 # Usage
 
