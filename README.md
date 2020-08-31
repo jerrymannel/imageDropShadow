@@ -25,18 +25,18 @@ $ ./imageDropShadow-mac -i joey.png -t
 
 ## Input 1
 
-![alt text](images/cnh.png "Calvin And Hobbes")
+<img src="images/cnh.png" alt="Calvin And Hobbes" height="200px">
 
 Output
 
-![alt text](images/cnh-out.png "Calvin And Hobbes")
+<img src="images/cnh-out.png" alt="Calvin And Hobbes" height="208px">
 
 ---
 
 ## Input 2
 
-![alt text](images/joey.png "Joey")
+<img src="images/joey.png" alt="Joey" height="200px">
 
 Output
 
-![alt text](images/joey-out.png "Joey")
+<img src="images/joey-out.png" alt="Joey" height="210px">
