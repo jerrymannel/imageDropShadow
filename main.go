@@ -46,7 +46,7 @@ func main() {
 	width := inputImage.Bounds().Dx()
 	height := inputImage.Bounds().Dy()
 
-	step := 50
+	step := 60
 
 	newWidth := width + step
 	newHeight := height + step
@@ -62,7 +62,7 @@ func main() {
 	}
 
 	dc.DrawRectangle(23, 23, float64(width+step), float64(height+step))
-	dc.SetRGBA(0.1, 0.1, 0.1, 0.5)
+	dc.SetRGBA(0.1, 0.1, 0.1, 0.3)
 	dc.Fill()
 
 	imageToBlur := dc.Image()
