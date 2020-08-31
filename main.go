@@ -1,61 +1,83 @@
 package main
 
 import (
+	"errors"
+	"flag"
+	"fmt"
 	"image"
+	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/anthonynsimon/bild/blur"
-	"github.com/anthonynsimon/bild/imgio"
 	"github.com/fogleman/gg"
 )
 
 func check(_err error) {
 	if _err != nil {
-		panic(_err)
+		fmt.Println(_err)
+		os.Exit(1)
 	}
 }
 
 func main() {
-	reader, err := os.Open("login.png")
+	inputFile := flag.String("i", "", "Path to input file")
+	transparentBg := flag.Bool("t", false, "Background is transparent")
+
+	flag.Parse()
+	if *inputFile == "" {
+		check(errors.New("Missing input file"))
+	}
+	fmt.Println("Input file  :", *inputFile)
+
+	reader, err := os.Open(*inputFile)
 	check(err)
 	defer reader.Close()
+
+	imageExtension := filepath.Ext(*inputFile)
+	imageName := strings.TrimSuffix(filepath.Base(*inputFile), imageExtension)
+
 	inputImage, _, err := image.Decode(reader)
 	check(err)
 
 	width := inputImage.Bounds().Dx()
 	height := inputImage.Bounds().Dy()
 
-	newWidth := width + 50
-	newHeight := height + 50
+	step := 50
 
-	step := 10
+	newWidth := width + step
+	newHeight := height + step
+
+	step = 10
 
 	dc := gg.NewContext(newWidth, newHeight)
 
-	// dc.DrawRectangle(0, 0, float64(newWidth), float64(newHeight))
-	// dc.SetRGB(1, 1, 1)
-	// dc.Fill()
+	if !*transparentBg {
+		dc.DrawRectangle(0, 0, float64(newWidth), float64(newHeight))
+		dc.SetRGB(1, 1, 1)
+		dc.Fill()
+	}
 
 	dc.DrawRectangle(23, 23, float64(width+step), float64(height+step))
-	dc.SetRGBA(0, 0, 0, 0.5)
+	dc.SetRGBA(0.1, 0.1, 0.1, 0.5)
 	dc.Fill()
-	dc.SavePNG("out-" + reader.Name())
 
-	imageToBlur, err := imgio.Open("out-" + reader.Name())
+	imageToBlur := dc.Image()
 	check(err)
-	result := blur.Box(imageToBlur, 20.0)
-	imgio.Save("out-blur-"+reader.Name(), result, imgio.PNGEncoder())
-
-	intermediateImage, err := gg.LoadImage("out-blur-" + reader.Name())
-	check(err)
+	dropShadow := blur.Box(imageToBlur, 20.0)
 
 	dc = gg.NewContext(newWidth, newHeight)
-	dc.DrawImage(intermediateImage, 0, 0)
+
+	dc.DrawImage(dropShadow, 0, 0)
 	dc.Fill()
+
 	dc.DrawImage(inputImage, 25, 25)
 	dc.Fill()
-	dc.SavePNG("out-2-" + reader.Name())
 
+	dc.SavePNG(imageName + "-out" + imageExtension)
+
+	fmt.Println("Output file :", imageName+"-out"+imageExtension)
 }
