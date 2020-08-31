@@ -66,7 +66,6 @@ func main() {
 	dc.Fill()
 
 	imageToBlur := dc.Image()
-	check(err)
 	dropShadow := blur.Box(imageToBlur, 20.0)
 
 	dc = gg.NewContext(newWidth, newHeight)
