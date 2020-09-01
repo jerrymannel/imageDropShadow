@@ -40,3 +40,10 @@ Output
 Output
 
 <img src="images/joey-out.png" alt="Joey" height="210px">
+
+# Releases
+
+| Release | Description                                                                                      |
+| ------- | ------------------------------------------------------------------------------------------------ |
+| 1.0     | <ul><li>Basic working version where a shadow effect is added to a given png/jpg image.</li></ul> |
+| 1.1     | <ul><li>Added stroke</li><li>Fixed the shadow effect</li></ul>                                   |

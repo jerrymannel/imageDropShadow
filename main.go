@@ -46,7 +46,7 @@ func main() {
 	width := inputImage.Bounds().Dx()
 	height := inputImage.Bounds().Dy()
 
-	step := 60
+	step := 75
 
 	newWidth := width + step
 	newHeight := height + step
@@ -61,8 +61,8 @@ func main() {
 		dc.Fill()
 	}
 
-	dc.DrawRectangle(23, 23, float64(width+step), float64(height+step))
-	dc.SetRGBA(0.1, 0.1, 0.1, 0.3)
+	dc.DrawRectangle(40, 40, float64(width-step), float64(height-step))
+	dc.SetRGBA(0.1, 0.1, 0.1, 0.2)
 	dc.Fill()
 
 	dropShadow := blur.Box(dc.Image(), 20.0)
@@ -74,6 +74,10 @@ func main() {
 
 	dc.DrawImage(inputImage, 25, 25)
 	dc.Fill()
+
+	dc.DrawRectangle(25, 25, float64(width), float64(height))
+	dc.SetRGB(0.1, 0.1, 0.1)
+	dc.Stroke()
 
 	dc.SavePNG(imageName + "-out" + imageExtension)
 
