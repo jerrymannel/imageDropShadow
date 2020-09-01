@@ -1,4 +1,4 @@
-module github.com/jerrymannel/goImage
+module github.com/jerrymannel/imageDropShadow
 
 go 1.13
 
