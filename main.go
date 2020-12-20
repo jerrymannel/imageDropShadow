@@ -25,6 +25,7 @@ func check(_err error) {
 
 func main() {
 	inputFile := flag.String("i", "", "Path to input file")
+	borderToggle := flag.Bool("b", false, "Toogle image border")
 	transparentBg := flag.Bool("t", false, "Background is transparent")
 
 	flag.Parse()
@@ -75,9 +76,11 @@ func main() {
 	dc.DrawImage(inputImage, 25, 25)
 	dc.Fill()
 
-	dc.DrawRectangle(25, 25, float64(width), float64(height))
-	dc.SetRGB(0.1, 0.1, 0.1)
-	dc.Stroke()
+	if *borderToggle {
+		dc.DrawRectangle(25, 25, float64(width), float64(height))
+		dc.SetRGB(0.1, 0.1, 0.1)
+		dc.Stroke()
+	}
 
 	dc.SavePNG(imageName + "-out" + imageExtension)
 
