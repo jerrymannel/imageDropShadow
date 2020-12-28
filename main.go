@@ -62,11 +62,11 @@ func main() {
 		dc.Fill()
 	}
 
-	dc.DrawRectangle(40, 40, float64(width-step), float64(height-step))
-	dc.SetRGBA(0.1, 0.1, 0.1, 0.2)
+	dc.DrawRoundedRectangle(40, 40, float64(width-step), float64(height-step), 20)
+	dc.SetRGBA(0.1, 0.1, 0.1, 0.4)
 	dc.Fill()
 
-	dropShadow := blur.Box(dc.Image(), 20.0)
+	dropShadow := blur.Box(dc.Image(), 15.0)
 
 	dc = gg.NewContext(newWidth, newHeight)
 
