@@ -66,7 +66,7 @@ func main() {
 	dc.SetRGBA(0.1, 0.1, 0.1, 0.4)
 	dc.Fill()
 
-	dropShadow := blur.Box(dc.Image(), 15.0)
+	dropShadow := blur.Box(dc.Image(), 30.0)
 
 	dc = gg.NewContext(newWidth, newHeight)
 
